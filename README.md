@@ -67,7 +67,7 @@ Testing if a feature is enabled for the current user :
 
 *PHP*
 
-    if ($this->get('socloz_feature_flag.feature')->isEnabled('feature_name') { [...] }
+    if ($this->get('socloz_feature_flag.feature')->isEnabled('feature_name')) { [...] }
 
 *Twig*
 
