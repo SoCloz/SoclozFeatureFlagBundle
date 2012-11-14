@@ -65,17 +65,17 @@ Using feature flags
 
 Testing if a feature is enabled for the current user :
 
-* PHP
+*PHP*
 
-    if ($this->get('socloz_feature_flag.feature')->isEnabled('feature_name')
+    if ($this->get('socloz_feature_flag.feature')->isEnabled('feature_name') { [...] }
 
-* Twig
+*Twig*
 
-    {% if feature_is_enabled('feature_name') %}
+    {% if feature_is_enabled('feature_name') %}...{% endif %}
 
 Enabling/disabling a feature for the current user :
 
-* PHP
+*PHP*
 
     $this->get('socloz_feature_flag.feature')->enableForUser($feature);
     $this->get('socloz_feature_flag.feature')->disableForUser($feature);
@@ -85,25 +85,25 @@ Using A/B Testing
 
 Getting the feature variation for the current user :
 
-* PHP
+*PHP*
 
-    if ($this->get('socloz_feature_flag.abtesting')->getFeatureVariation($feature) == 'A')
+    if ($this->get('socloz_feature_flag.abtesting')->getFeatureVariation($feature) == 'A') { [...] }
 
-* Twig
+*Twig*
 
-    {% if ab_variation('feature_name') == 'A' %}
+    {% if ab_variation('feature_name') == 'A' %}...{% endif %}
 
 Couting transactions :
 
-* PHP
+*PHP*
 
-    $this->get('socloz_feature_flag.abtesting')->begin($feature)
-    $this->get('socloz_feature_flag.abtesting')->success($feature)
-    $this->get('socloz_feature_flag.abtesting')->failure($feature)
+    $this->get('socloz_feature_flag.abtesting')->begin($feature);
+    $this->get('socloz_feature_flag.abtesting')->success($feature);
+    $this->get('socloz_feature_flag.abtesting')->failure($feature);
 
 Analytics call :
 
-* Twig
+*Twig*
 
     {{ ab_tracking('feature_name') }}
 
