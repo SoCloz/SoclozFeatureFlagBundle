@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        {% for key, message in app.session.getFlashes() %}
+        <div class="{{ key }}">
+            {{ message|trans({}, 'SoclozFeatureFlagBundle') }}
+        </div>
+        {% endfor %}
+
+        <div>
+            {% block socloz_feature_flag %}
+            {% endblock socloz_feature_flag %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+features:
+  status:
+    hidden: hidden
+    enabled: enabled
+    disabled: disabled
+    none: none
+  flash:
+    update_success: Features were updated
+    
+  

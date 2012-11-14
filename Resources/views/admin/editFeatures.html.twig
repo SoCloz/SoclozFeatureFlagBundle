@@ -1,0 +1,22 @@
+{% extends "SoclozFeatureFlagBundle::layout-admin.html.twig" %}
+
+{% block socloz_feature_flag %}
+<ul class="unstyled form-horizontal">
+{% for feature in feature_service.features %}
+    <li class="control-group">
+        <div class="control-label">{{ feature.name | trans }}</div>
+        <div class="controls">
+            {% if feature.mayBeVisible %}
+                <div class="btn-group pull-left">
+                    <a href="{{ path("feature_flag_admin_enable_feature", {'feature': feature.name}) }}" class="btn{% if (feature_service.isEnabledByDefault(feature.name)) %} btn-success{% endif %}">{{ 'features.status.enabled' | trans({}, 'SoclozFeatureFlagBundle') }}</a>
+                    <a href="{{ path("feature_flag_admin_disable_feature", {'feature': feature.name}) }}" class="btn{% if (not feature_service.isEnabledByDefault(feature.name)) %} btn-warning{% endif %}">{{ 'features.status.disabled' | trans({}, 'SoclozFeatureFlagBundle') }}</a>
+                </div>
+            {% else %}
+                <div class="btn btn-danger disabled">{{ 'features.status.hidden' | trans({}, 'SoclozFeatureFlagBundle') }}</div> 
+            {% endif %}
+            <span class="help-inline">{{ feature.description }}</span>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

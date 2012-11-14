@@ -1,0 +1,8 @@
+features:
+  status:
+    hidden: masqué
+    enabled: activé
+    disabled: désactivé
+    none: -
+  flash:
+    update_success: Modifications sauvegardées

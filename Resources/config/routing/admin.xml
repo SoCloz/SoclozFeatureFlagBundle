@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="feature_flag_admin_view_features" pattern="/features">
+        <default key="_controller">SoclozFeatureFlagBundle:Admin:viewFeatures</default>
+        <requirement key="_method">GET|POST</requirement>
+    </route>
+    <route id="feature_flag_admin_enable_feature" pattern="/features/enable/{feature}">
+        <default key="_controller">SoclozFeatureFlagBundle:Admin:enableFeature</default>
+        <requirement key="_method">GET|POST</requirement>
+    </route>
+    <route id="feature_flag_admin_disable_feature" pattern="/features/disable/{feature}">
+        <default key="_controller">SoclozFeatureFlagBundle:Admin:disableFeature</default>
+        <requirement key="_method">GET|POST</requirement>
+    </route>
+</routes>

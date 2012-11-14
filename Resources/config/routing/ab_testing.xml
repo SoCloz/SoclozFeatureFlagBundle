@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="feature_flag_change_variation" pattern="/{feature}/change_variation/{variation}">
+        <default key="_controller">SoclozFeatureFlagBundle:AB:changeVariation</default>
+        <requirement key="_method">GET|POST</requirement>
+    </route>
+    <route id="feature_flag_ab_status" pattern="/{feature}/ab_status">
+        <default key="_controller">SoclozFeatureFlagBundle:AB:status</default>
+        <requirement key="_method">GET|POST</requirement>
+    </route>
+
+</routes>
