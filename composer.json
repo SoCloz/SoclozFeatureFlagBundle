@@ -2,7 +2,7 @@
     "name": "socloz/feature-flag-bundle",
     "description": "A bundle to manage feature flags & A/B tests",
     "homepage": "",
-    "keywords": [ "feature", "flag", "AB", "A/B", "tests" ],
+    "keywords": [ "feature", "flag", "AB", "tests" ],
     "license": "MIT",
     "authors": [
         {
