@@ -77,8 +77,8 @@ Enabling/disabling a feature for the current user :
 
 *PHP*
 
-    $this->get('socloz_feature_flag.feature')->enableForUser($feature);
-    $this->get('socloz_feature_flag.feature')->disableForUser($feature);
+    $this->get('socloz_feature_flag.feature')->enableForUser('feature_name');
+    $this->get('socloz_feature_flag.feature')->disableForUser('feature_name');
 
 Using A/B Testing
 -----------------
@@ -87,7 +87,7 @@ Getting the feature variation for the current user :
 
 *PHP*
 
-    if ($this->get('socloz_feature_flag.abtesting')->getFeatureVariation($feature) == 'A') { [...] }
+    if ($this->get('socloz_feature_flag.abtesting')->getFeatureVariation('feature_name') == 'A') { [...] }
 
 *Twig*
 
@@ -97,9 +97,9 @@ Couting transactions :
 
 *PHP*
 
-    $this->get('socloz_feature_flag.abtesting')->begin($feature);
-    $this->get('socloz_feature_flag.abtesting')->success($feature);
-    $this->get('socloz_feature_flag.abtesting')->failure($feature);
+    $this->get('socloz_feature_flag.abtesting')->begin('feature_name');
+    $this->get('socloz_feature_flag.abtesting')->success('feature_name');
+    $this->get('socloz_feature_flag.abtesting')->failure('feature_name');
 
 Analytics call :
 
