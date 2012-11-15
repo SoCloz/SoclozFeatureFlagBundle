@@ -1,0 +1,23 @@
+{
+    "name": "socloz/feature-flag-bundle",
+    "description": "A bundle to manage feature flags & A/B tests",
+    "homepage": "",
+    "keywords": [ "feature", "flag", "AB", "A/B", "tests" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CloseToMe",
+            "email": "technique@closetome.fr",
+            "homepage": "http://www.socloz.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2",
+        "ext-redis": "*"
+    },
+    "autoload": {
+        "psr-0": { "Socloz\\FeatureFlagBundle": "" }
+    },
+     "target-dir": "Socloz/FeatureFlagBundle"
+}
