@@ -4,7 +4,7 @@
 <dl>
 {% for key,value in status %}
     <dt>{{ key | trans }}</dt>
-    <dd>{{ value | trans({}, 'SoclozFeatureFlagBundle') }} / {{ feature_is_enabled(key) }} / {{ ab_variation(key) }}</dd>
+    <dd>{{ value | trans({}, 'SoclozFeatureFlagBundle') }}</dd>
 {% endfor %}
 </dl>
 {% endblock %}
