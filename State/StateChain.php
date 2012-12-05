@@ -7,6 +7,7 @@
 namespace Socloz\FeatureFlagBundle\State;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\InactiveScopeException;
 
 /**
  * Description of StateChain
@@ -26,7 +27,11 @@ class StateChain implements StateInterface
     {
         $this->chain = array();
         foreach ($states as $state) {
-            $service = $container->get($state, ContainerInterface::NULL_ON_INVALID_REFERENCE);
+            try {
+                $service = $container->get($state, ContainerInterface::NULL_ON_INVALID_REFERENCE);
+            } catch (InactiveScopeException $e) {
+                continue;
+            }
             if ($service) {
                 $this->chain[] = $service;
             }
