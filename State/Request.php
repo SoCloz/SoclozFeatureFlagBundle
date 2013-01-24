@@ -31,7 +31,7 @@ class Request implements StateInterface
      */
     private function getSessionKey($type)
     {
-        return "socloz_feature_flag_$type";
+        return strtr("socloz_feature_flag_$type", " .[]", "____");
     }
     
     /**
