@@ -48,8 +48,7 @@ The basic configuration is :
     socloz_feature_flag:
         options:
             redis:
-                host: redis host
-                port: redis port
+                host: "host:port,host:port"
         features:
             feature_name:
                 state: [enabled|enabled-always|disabled|disabled-hidden|disabled-always]

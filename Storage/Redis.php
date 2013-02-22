@@ -18,10 +18,10 @@ class Redis implements StorageInterface
     protected $state = array();
     protected $loaded = false;
     
-    public function __construct($host, $port, $prefix)
+    public function __construct($host, $prefix)
     {
-        $this->redis = new \Redis();
-        $this->redis->pconnect($host, $port);
+        $list = explode(",", $host);
+        $this->redis = new \RedisArray($list);
         $this->prefix = $prefix;
     }
 

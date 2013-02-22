@@ -37,7 +37,6 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('prefix')->defaultValue('socloz_feature_flag')->end()
                                 ->scalarNode('host')->defaultValue('localhost')->end()
-                                ->scalarNode('port')->defaultValue(6379)->end()
                             ->end()
                         ->end()
                         ->arrayNode('google_analytics')->addDefaultsIfNotSet()
