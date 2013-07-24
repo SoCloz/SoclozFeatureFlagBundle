@@ -4,10 +4,12 @@
         <meta charset="UTF-8" />
     </head>
     <body>
-        {% for key, message in app.session.getFlashes() %}
-        <div class="{{ key }}">
-            {{ message|trans({}, 'SoclozFeatureFlagBundle') }}
-        </div>
+        {% for key, messages in app.session.flashBag.all() %}
+            {% for message in messages %}
+            <div class="{{ key }}">
+                {{ message|trans({}, 'SoclozFeatureFlagBundle') }}
+            </div>
+            {% endfor %}
         {% endfor %}
 
         <div>
