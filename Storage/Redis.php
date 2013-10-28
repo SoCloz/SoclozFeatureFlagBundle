@@ -14,15 +14,27 @@ namespace Socloz\FeatureFlagBundle\Storage;
 class Redis implements StorageInterface
 {
     protected $redis;
+    protected $hosts;
     protected $prefix;
     protected $state = array();
     protected $loaded = false;
     
     public function __construct($host, $prefix)
     {
-        $list = explode(",", $host);
-        $this->redis = new \RedisArray($list);
+        $this->hosts = explode(",", $host);
         $this->prefix = $prefix;
+    }
+
+    /**
+     *
+     * @return \RedisArray
+     */
+    protected function getRedis()
+    {
+        if (!$this->redis) {
+            $this->redis = new \RedisArray($this->hosts);
+        }
+        return $this->redis;
     }
 
     public function getKey()
@@ -33,13 +45,13 @@ class Redis implements StorageInterface
     public function setFeatureEnabled($feature, $state)
     {
         $this->state[$feature] = $state;
-        $this->redis->hset($this->getKey(), $feature, $state);
+        $this->getRedis()->hset($this->getKey(), $feature, $state);
     }
 
     public function getFeatureEnabled($feature)
     {
         if (!$this->loaded) {
-            $ret = $this->redis->hgetall($this->getKey());
+            $ret = $this->getRedis()->hgetall($this->getKey());
             if (is_array($ret)) {
                 $this->state = $ret;
             }
