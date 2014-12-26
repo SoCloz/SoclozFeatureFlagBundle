@@ -45,15 +45,17 @@ Configuration
 
 The basic configuration is :
 
-    socloz_feature_flag:
-        options:
-            redis:
-                host: "host:port,host:port"
-        features:
-            feature_name:
-                state: [enabled|enabled-always|disabled|disabled-hidden|disabled-always]
-                description: used for the admin page
-                variations: list of variation names
+```yaml
+socloz_feature_flag:
+    options:
+        redis:
+            host: "host:port,host:port"
+    features:
+        feature_name:
+            state: [enabled|enabled-always|disabled|disabled-hidden|disabled-always]
+            description: used for the admin page
+            variations: list of variation names
+```
 
 Other options :
 
@@ -66,18 +68,24 @@ Testing if a feature is enabled for the current user :
 
 *PHP*
 
-    if ($this->get('socloz_feature_flag.feature')->isEnabled('feature_name')) { [...] }
+```php
+if ($this->get('socloz_feature_flag.feature')->isEnabled('feature_name')) { [...] }
+```
 
 *Twig*
 
-    {% if feature_is_enabled('feature_name') %}...{% endif %}
+```twig
+{% if feature_is_enabled('feature_name') %}...{% endif %}
+```
 
 Enabling/disabling a feature for the current user :
 
 *PHP*
 
-    $this->get('socloz_feature_flag.feature')->enableForUser('feature_name');
-    $this->get('socloz_feature_flag.feature')->disableForUser('feature_name');
+```php
+$this->get('socloz_feature_flag.feature')->enableForUser('feature_name');
+$this->get('socloz_feature_flag.feature')->disableForUser('feature_name');
+```
 
 Using A/B Testing
 -----------------
@@ -86,25 +94,33 @@ Getting the feature variation for the current user :
 
 *PHP*
 
-    if ($this->get('socloz_feature_flag.abtesting')->getFeatureVariation('feature_name') == 'A') { [...] }
+```php
+if ($this->get('socloz_feature_flag.abtesting')->getFeatureVariation('feature_name') == 'A') { [...] }
+```
 
 *Twig*
 
-    {% if ab_variation('feature_name') == 'A' %}...{% endif %}
+```twig
+{% if ab_variation('feature_name') == 'A' %}...{% endif %}
+```
 
 Couting transactions :
 
 *PHP*
 
-    $this->get('socloz_feature_flag.abtesting')->begin('feature_name');
-    $this->get('socloz_feature_flag.abtesting')->success('feature_name');
-    $this->get('socloz_feature_flag.abtesting')->failure('feature_name');
+```php
+$this->get('socloz_feature_flag.abtesting')->begin('feature_name');
+$this->get('socloz_feature_flag.abtesting')->success('feature_name');
+$this->get('socloz_feature_flag.abtesting')->failure('feature_name');
+```
 
 Analytics call :
 
 *Twig*
 
-    {{ ab_tracking('feature_name') }}
+```twig
+{{ ab_tracking('feature_name') }}
+```
 
 Admin interface
 ---------------
@@ -113,24 +129,30 @@ The admin interface is located at `/feature-flag/admin/features`.
 
 To use the admin interface, you must load the admin routes in `routing.yml`:
 
-    socloz_feature_flag_feature_admin:
-        resource: "@SoclozFeatureFlagBundle/Resources/config/routing/admin.xml"
-        prefix:   /feature-flag/admin
+```yaml
+socloz_feature_flag_feature_admin:
+    resource: "@SoclozFeatureFlagBundle/Resources/config/routing/admin.xml"
+    prefix:   /feature-flag/admin
+```
 
 The twig template use Twitter Bootstrap CSS classes, but does not include Twitter Bootstrap.
 
 You can override the layout by creating a `app/Resources/SoclozFeatureBundle/views/layout-admin.html.twig` file, such as :
 
-    {% extends "AcmeAdminBundle::layout.html.twig" %}
-    {% block my_block %}
-        {% block socloz_feature_flag %}
-        {% endblock socloz_feature_flag %}
-    {% endblock %}
+```twig
+{% extends "AcmeAdminBundle::layout.html.twig" %}
+{% block my_block %}
+    {% block socloz_feature_flag %}
+    {% endblock socloz_feature_flag %}
+{% endblock %}
+```
 
 You have to secure the admin route in your `security.yml` file :
 
-    access_control:
-        - { path: ^/feature-flag/admin/, role: IS_AUTHENTICATED_FULLY }
+```yaml
+access_control:
+    - { path: ^/feature-flag/admin/, role: IS_AUTHENTICATED_FULLY }
+```
 
 Use whatever role is appropriate...
 
@@ -139,12 +161,14 @@ Front-end controllers
 
 If you want to be able to switch features or variations for the current session, load the corresponding routes :
 
-    socloz_feature_flag_feature:
-      resource: "@SoclozFeatureFlagBundle/Resources/config/routing/feature.xml"
-      prefix:   /feature-flag
-    socloz_feature_flag_ab:
-      resource: "@SoclozFeatureFlagBundle/Resources/config/routing/ab_testing.xml"
-      prefix:   /feature-flag
+```yaml
+socloz_feature_flag_feature:
+  resource: "@SoclozFeatureFlagBundle/Resources/config/routing/feature.xml"
+  prefix:   /feature-flag
+socloz_feature_flag_ab:
+  resource: "@SoclozFeatureFlagBundle/Resources/config/routing/ab_testing.xml"
+  prefix:   /feature-flag
+```
 
 You can toggle a service for the current session using `/feature-flag/{feature name}/enable` and `/feature-flag/{feature name}/disable`.
 
@@ -167,10 +191,12 @@ Google Analytics
 
 The Google Analytics implementation expects that you use the async Google Analytics tag. If your tag looks like this :
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-XXXXX-X']);
-    _gaq.push(['_trackPageview']);
-    [...]
+```javascript
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXX-X']);
+_gaq.push(['_trackPageview']);
+[...]
+```
 
 eveything is fine. If it does not look like it, analytics won't work.
 
