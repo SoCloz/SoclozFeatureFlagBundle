@@ -1,7 +1,8 @@
 {
     "name": "socloz/feature-flag-bundle",
     "description": "A bundle to manage feature flags & A/B tests",
-    "homepage": "",
+    "homepage": "http://www.socloz.com",
+    "type": "symfony-bundle",
     "keywords": [ "feature", "flag", "AB", "tests" ],
     "license": "MIT",
     "authors": [
@@ -13,8 +14,12 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "symfony/framework-bundle": "~2.0",
         "php": ">=5.3.2",
         "ext-redis": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
     },
     "autoload": {
         "psr-0": { "Socloz\\FeatureFlagBundle": "" }
