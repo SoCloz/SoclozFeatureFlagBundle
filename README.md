@@ -21,7 +21,7 @@ Features are defined in the application configuration. Features can be enabled/d
 
 A feature can have the following default state :
 * disabled-always : the feature is disabled and cannot be enabled,
-* disabled-hidden : the feature is disabled, and cannot be globaly enabled.
+* disabled-hidden : the feature is disabled, and cannot be globally enabled.
 It can be enabled for development/testing purposes using the front-end session controller or the request parameter,
 * disabled : the feature is disabled and can be enabled,
 * enabled : the feature is enabled and can be disabled,
@@ -31,14 +31,14 @@ A/B Testing
 -----------
 
 A feature can have multiple variations. The list of variations is defined in your configuration file,
-and it is your responsability to modify your templates according to those variations.
+and it is your responsibility to modify your templates according to those variations.
 
-Variations are automatically choosed by the bundle, but can be changed :
+Variations are automatically chosen by the bundle, but can be changed :
 * by your application (session level),
 * using the provided front-end controller (session level),
 * by adding a request parameter to the page url (page level).
 
-The service provides a simple success/failure couting mecanism. You can also use your favorite external analytics service.
+The service provides a simple success/failure couting mechanism. You can also use your favorite external analytics service.
 
 Configuration
 -------------
@@ -198,7 +198,7 @@ _gaq.push(['_trackPageview']);
 [...]
 ```
 
-eveything is fine. If it does not look like it, analytics won't work.
+everything is fine. If it does not look like it, analytics won't work.
 
 A single custom variable (session level) is used for all features. Therefore, you have to use the same variation set for all your features,
 and use the `socloz_feature_flag.splitter.shared_random` splitter (see below).
@@ -219,7 +219,7 @@ Configuration : `socloz_feature_flag.services.splitter`
 The splitter service chooses a variation for the current user.
 The available splitters are :
 * `socloz_feature_flag.splitter.random` (default) : chooses a random variation
-* `socloz_feature_flag.splitter.shared_random` : tries to use the same variation for feature having the same variation set (useful for Google Anaytics)
+* `socloz_feature_flag.splitter.shared_random` : tries to use the same variation for feature having the same variation set (useful for Google Analytics)
 
 A custom splitter can be written. It must implement `Socloz\FeatureFlagBundle\ABTesting\Splitter\SplitterInterface`.
 
@@ -227,7 +227,7 @@ A custom splitter can be written. It must implement `Socloz\FeatureFlagBundle\AB
 
 Configuration : `socloz_feature_flag.services.transaction`
 
-The transaction service counts succesful transactions.
+The transaction service counts successful transactions.
 
 There is only one transaction implemented : `socloz_feature_flag.transaction.session`.
 
@@ -269,4 +269,4 @@ A custom analytics service can be written. It must implement `Socloz\FeatureFlag
 License
 -------
 
-This bundle is released under the MIT license (see LICENSE).
+This bundle is released under the MIT license (see [LICENSE](LICENSE)).
