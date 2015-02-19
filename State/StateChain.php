@@ -11,19 +11,21 @@ use Symfony\Component\DependencyInjection\Exception\InactiveScopeException;
 
 /**
  * Description of StateChain
- *
  * @author jfb
  */
 class StateChain implements StateInterface
 {
 
-    protected $chain;
-    
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param array $states
+     * @var array
      */
-    public function __construct($container, $states)
+    protected $chain;
+
+    /**
+     * @param ContainerInterface $container
+     * @param array              $states
+     */
+    public function __construct($container, array $states = array())
     {
         $this->chain = array();
         foreach ($states as $state) {
@@ -37,14 +39,18 @@ class StateChain implements StateInterface
             }
         }
     }
-    
+
+    /**
+     * @param string $feature
+     * @param bool   $enabled
+     */
     public function setFeatureEnabled($feature, $enabled)
     {
         foreach ($this->chain as $item) {
             $item->setFeatureEnabled($feature, $enabled);
         }
     }
-    
+
     public function getFeatureEnabled($feature)
     {
         foreach ($this->chain as $item) {
@@ -55,14 +61,14 @@ class StateChain implements StateInterface
         }
         return null;
     }
-    
+
     public function setFeatureVariation($feature, $variation)
     {
         foreach ($this->chain as $item) {
             $item->setFeatureVariation($feature, $variation);
         }
     }
-    
+
     public function getFeatureVariation($feature)
     {
         foreach ($this->chain as $item) {

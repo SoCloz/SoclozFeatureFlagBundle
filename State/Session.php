@@ -6,34 +6,39 @@
 
 namespace Socloz\FeatureFlagBundle\State;
 
+use Symfony\Component\HttpFoundation\Session\Session as HttpFoundationSession;
+
 /**
  * Stores/fetches feature states in the user session
- *
  * @author jfb
  */
 class Session implements StateInterface
 {
-
-    protected $session;
-    
     /**
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session
+     * @var HttpFoundationSession
+     */
+    protected $session;
+
+    /**
+     * @param HttpFoundationSession $session
      */
     public function __construct($session)
     {
         $this->session = $session;
     }
-    
+
     /**
      * Returns the session key
-     * 
+     *
      * @param string $type
+     *
+     * @return string
      */
     private function getSessionKey($type)
     {
         return strtr("socloz_feature_flag_$type", " .[]", "____");
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -42,7 +47,7 @@ class Session implements StateInterface
         $key = $this->getSessionKey("$feature.enabled");
         $this->session->set($key, $enabled);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -51,7 +56,7 @@ class Session implements StateInterface
         $key = $this->getSessionKey("$feature.enabled");
         return $this->session->has($key) ? $this->session->get($key) : null;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -60,7 +65,7 @@ class Session implements StateInterface
         $key = $this->getSessionKey("$feature.variation");
         $this->session->set($key, $variation);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -69,5 +74,4 @@ class Session implements StateInterface
         $key = $this->getSessionKey("$feature.variation");
         return $this->session->has($key) ? $this->session->get($key) : null;
     }
-
 }

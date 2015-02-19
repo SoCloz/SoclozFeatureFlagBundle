@@ -6,31 +6,39 @@
 
 namespace Socloz\FeatureFlagBundle\Twig;
 
+use Socloz\FeatureFlagBundle\ABTesting\ABTestingService;
+use Socloz\FeatureFlagBundle\Analytics\AnalyticsInterface;
+
 
 /**
  * Twig functions for A/B testing
- *
  * @author jfb
  */
 class ABTesting extends \Twig_Extension
 {
 
-    protected $abTesting;
-    protected $analytics;
-    
     /**
-     * @param \Socloz\FeatureFlagBundle\ABTesting\ABTestingService $abTesting
-     * @param \Socloz\FeatureFlagBundle\Analytics\AnalyticsInterface $analytics
+     * @var ABTestingService
+     */
+    protected $abTesting;
+
+    /**
+     * @var AnalyticsInterface
+     */
+    protected $analytics;
+
+    /**
+     * @param ABTestingService   $abTesting
+     * @param AnalyticsInterface $analytics
      */
     public function __construct($abTesting, $analytics)
     {
         $this->abTesting = $abTesting;
         $this->analytics = $analytics;
     }
-    
+
     /**
      * Returns a list of functions to add to the existing list.
-     *
      * @return array
      */
     public function getFunctions()
@@ -43,7 +51,7 @@ class ABTesting extends \Twig_Extension
 
     /**
      * Returns the tracking code for A/B tests
-     * 
+     *
      * @param string $feature
      */
     public function getTrackingCode($feature)
@@ -52,11 +60,13 @@ class ABTesting extends \Twig_Extension
             return $this->analytics->getTrackingCode($feature);
         }
     }
-    
+
     /**
      * Returns the feature variation active for the current user
-     * 
+     *
      * @param string $feature
+     *
+     * @return bool
      */
     public function getFeatureVariation($feature)
     {
@@ -64,7 +74,7 @@ class ABTesting extends \Twig_Extension
             return $this->abTesting->getFeatureVariation($feature);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */

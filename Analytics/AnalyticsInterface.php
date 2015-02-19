@@ -8,12 +8,9 @@ namespace Socloz\FeatureFlagBundle\Analytics;
 
 /**
  * Interface for all analytics classes
- *
  * @author jfb
  */
 interface AnalyticsInterface
 {
-
     public function getTrackingCode($feature);
-
 }

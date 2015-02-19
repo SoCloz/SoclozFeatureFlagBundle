@@ -6,34 +6,39 @@
 
 namespace Socloz\FeatureFlagBundle\State;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Fetches feature states in the user session
- *
  * @author jfb
  */
 class Cookie implements StateInterface
 {
-
-    protected $request;
-    
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @param Request $request
      */
     public function __construct($request)
     {
         $this->request = $request;
     }
-    
+
     /**
      * Returns the session key
-     * 
+     *
      * @param string $type
+     *
+     * @return string
      */
     private function getSessionKey($type)
     {
         return strtr("socloz_feature_flag_$type", " .[]", "____");
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -42,7 +47,7 @@ class Cookie implements StateInterface
         $key = $this->getSessionKey("${feature}_enabled");
         $this->request->cookies->get($key, $enabled);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -51,7 +56,7 @@ class Cookie implements StateInterface
         $key = $this->getSessionKey("${feature}_enabled");
         return $this->request->cookies->has($key) ? $this->request->cookies->get($key) : null;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -60,7 +65,7 @@ class Cookie implements StateInterface
         $key = $this->getSessionKey("${feature}_variation");
         $this->request->cookies->get($key, $variation);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -69,5 +74,4 @@ class Cookie implements StateInterface
         $key = $this->getSessionKey("${feature}_variation");
         return $this->request->cookies->has($key) ? $this->request->cookies->get($key) : null;
     }
-
 }

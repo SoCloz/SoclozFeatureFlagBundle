@@ -8,16 +8,15 @@ namespace Socloz\FeatureFlagBundle\State;
 
 /**
  * Description of StateInterface
- *
  * @author jfb
  */
 interface StateInterface
 {
     public function setFeatureEnabled($feature, $enabled);
-    
+
     public function getFeatureEnabled($feature);
-    
+
     public function setFeatureVariation($feature, $variation);
-    
+
     public function getFeatureVariation($feature);
 }

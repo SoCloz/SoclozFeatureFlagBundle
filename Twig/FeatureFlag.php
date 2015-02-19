@@ -6,18 +6,21 @@
 
 namespace Socloz\FeatureFlagBundle\Twig;
 
+use Socloz\FeatureFlagBundle\Feature\FeatureService;
+
 /**
  * Twig functions for feature flags
- *
  * @author jfb
  */
 class FeatureFlag extends \Twig_Extension
 {
-
+    /**
+     * @var FeatureService
+     */
     protected $features;
 
     /**
-     * @param \Socloz\FeatureFlagBundle\Feature\FeatureService $features
+     * @param FeatureService $features
      */
     public function __construct($features)
     {
@@ -26,7 +29,6 @@ class FeatureFlag extends \Twig_Extension
 
     /**
      * Returns a list of functions to add to the existing list.
-     *
      * @return array
      */
     public function getFunctions()
@@ -35,11 +37,12 @@ class FeatureFlag extends \Twig_Extension
             'feature_is_enabled' => new \Twig_Function_Method($this, 'isFeatureEnabled'),
         );
     }
-    
+
     /**
      * Returns if a feature is enabled for the current user
-     * 
+     *
      * @param string $feature
+     *
      * @return boolean
      */
     public function isFeatureEnabled($feature)
@@ -49,7 +52,7 @@ class FeatureFlag extends \Twig_Extension
         }
         return true;
     }
-    
+
     /**
      * {@inheritDoc}
      */

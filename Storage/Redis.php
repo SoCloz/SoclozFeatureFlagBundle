@@ -8,17 +8,39 @@ namespace Socloz\FeatureFlagBundle\Storage;
 
 /**
  * Description of Redis
- *
  * @author jfb
  */
 class Redis implements StorageInterface
 {
+    /**
+     * @var \RedisArray
+     */
     protected $redis;
+
+    /**
+     * @var array
+     */
     protected $hosts;
+
+    /**
+     * @var string
+     */
     protected $prefix;
+
+    /**
+     * @var array
+     */
     protected $state = array();
+
+    /**
+     * @var bool
+     */
     protected $loaded = false;
-    
+
+    /**
+     * @param string $host
+     * @param string $prefix
+     */
     public function __construct($host, $prefix)
     {
         $this->hosts = explode(",", $host);
@@ -26,7 +48,6 @@ class Redis implements StorageInterface
     }
 
     /**
-     *
      * @return \RedisArray
      */
     protected function getRedis()
@@ -37,11 +58,14 @@ class Redis implements StorageInterface
         return $this->redis;
     }
 
+    /**
+     * @return string
+     */
     public function getKey()
     {
         return sprintf("%s.features", $this->prefix);
     }
-    
+
     public function setFeatureEnabled($feature, $state)
     {
         $this->state[$feature] = $state;
@@ -57,7 +81,7 @@ class Redis implements StorageInterface
             }
             $this->loaded = true;
         }
-        
+
         return isset($this->state[$feature]) ? $this->state[$feature] : null;
     }
 }

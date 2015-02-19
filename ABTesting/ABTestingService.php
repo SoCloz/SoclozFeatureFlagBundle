@@ -6,24 +6,43 @@
 
 namespace Socloz\FeatureFlagBundle\ABTesting;
 
+use Socloz\FeatureFlagBundle\ABTesting\Splitter\SplitterInterface;
+use Socloz\FeatureFlagBundle\ABTesting\Transaction\TransactionInterface;
+use Socloz\FeatureFlagBundle\Feature\FeatureService;
+use Socloz\FeatureFlagBundle\State\StateInterface;
+
 /**
  * Description of ABTestingService
- *
  * @author jfb
  */
 class ABTestingService
 {
-    
+
+    /**
+     * @var FeatureService
+     */
     protected $features;
+
+    /**
+     * @var StateInterface
+     */
     protected $state;
+
+    /**
+     * @var SplitterInterface
+     */
     protected $splitter;
+
+    /**
+     * @var TransactionInterface
+     */
     protected $transaction;
 
     /**
-     * @param \Socloz\FeatureFlagBundle\Feature\FeatureService $features
-     * @param \Socloz\FeatureFlagBundle\State\StateInterface $state
-     * @param \Socloz\FeatureFlagBundle\ABTesting\Splitter\SplitterInterface $splitter
-     * @param \Socloz\FeatureFlagBundle\ABTesting\Transaction\TransactionInterface $transaction
+     * @param FeatureService       $features
+     * @param StateInterface       $state
+     * @param SplitterInterface    $splitter
+     * @param TransactionInterface $transaction
      */
     public function __construct($features, $state, $splitter, $transaction)
     {
@@ -32,11 +51,12 @@ class ABTestingService
         $this->splitter = $splitter;
         $this->transaction = $transaction;
     }
-    
+
     /**
      * Returns the feature variation for the current user
-     * 
+     *
      * @param string $feature
+     *
      * @return boolean
      */
     public function getFeatureVariation($feature)
@@ -59,25 +79,28 @@ class ABTestingService
 
     /**
      * Sets the feature variation for the current user
-     * 
+     *
      * @param string $feature
      * @param string $variation
+     *
      * @return boolean
      */
     public function setFeatureVariation($feature, $variation)
     {
         $f = $this->features->getFeature($feature);
-        if ($f == null) return false;
+        if ($f == null) {
+            return false;
+        }
 
         $variations = $f->getVariations();
         if (in_array($variation, $variations) && $this->state) {
             $this->state->setFeatureVariation($feature, $variation);
         }
     }
-    
+
     /**
      * Starts a transaction
-     * 
+     *
      * @param string $feature
      */
     public function begin($feature)
@@ -87,7 +110,7 @@ class ABTestingService
 
     /**
      * Ends a successful transaction
-     * 
+     *
      * @param string $feature
      */
     public function success($feature)
@@ -97,20 +120,20 @@ class ABTestingService
 
     /**
      * Ends a failed transaction
-     * 
+     *
      * @param string $feature
      */
     public function failure($feature)
     {
         $this->transaction->failure($feature);
     }
-    
+
     /**
      * Returns the counts
-     * 
      * @return array
      */
-    public function getCounts() {
-        
+    public function getCounts()
+    {
+
     }
 }

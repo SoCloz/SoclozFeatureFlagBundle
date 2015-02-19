@@ -2,16 +2,12 @@
 
 namespace Socloz\FeatureFlagBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-
 use Socloz\FeatureFlagBundle\Feature\Feature;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class SoclozFeatureFlagExtension extends Extension
 {
@@ -54,15 +50,18 @@ class SoclozFeatureFlagExtension extends Extension
         }
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load("services.xml");
-        
+
         $container->setDefinition('socloz_feature_flag.storage', new DefinitionDecorator($config['services']['storage']));
         $container->setDefinition('socloz_feature_flag.splitter', new DefinitionDecorator($config['services']['splitter']));
         $container->setDefinition('socloz_feature_flag.transaction', new DefinitionDecorator($config['services']['transaction']));
         $container->setDefinition('socloz_feature_flag.analytics', new DefinitionDecorator($config['services']['analytics']));
-        
+
         $container->getDefinition('socloz_feature_flag.state')->replaceArgument(1, $config['services']['state']);
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     public function getAlias()
     {
         return 'socloz_feature_flag';

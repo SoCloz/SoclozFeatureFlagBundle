@@ -6,18 +6,21 @@
 
 namespace Socloz\FeatureFlagBundle\ABTesting\Splitter;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
  * Chooses a random variation, shares the result with all features having the same variations
- *
  * @author jfb
  */
 class SharedRandom implements SplitterInterface
 {
-
-    protected $session;
-    
     /**
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session
+     * @var Session
+     */
+    protected $session;
+
+    /**
+     * @param Session $session
      */
     public function __construct($session)
     {
@@ -33,7 +36,7 @@ class SharedRandom implements SplitterInterface
         if ($this->session->has($key)) {
             return $this->session->get($key);
         }
-        $variation = $variations[mt_rand(0, count($variations)-1)];
+        $variation = $variations[mt_rand(0, count($variations) - 1)];
         $this->session->set($key, $variation);
         return $variation;
     }

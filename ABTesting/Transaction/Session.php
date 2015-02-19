@@ -6,9 +6,10 @@
 
 namespace Socloz\FeatureFlagBundle\ABTesting\Transaction;
 
+use Symfony\Component\HttpFoundation\Session\Session as HttpFoundationSession;
+
 /**
  * Description of Simple
- *
  * @author jfb
  */
 class Session implements TransactionInterface
@@ -17,17 +18,39 @@ class Session implements TransactionInterface
     const STATE_STARTED = 0;
     const STATE_FAILURE = 1;
     const STATE_SUCCESS = 3;
-    
-    protected $session;
-    
-    protected $started = 0;
-    protected $failure = 0;
-    protected $aborted = 0;
-    protected $success = 0;
-    protected $successOnFailure = 0;
-    
+
     /**
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session
+     * @var HttpFoundationSession
+     */
+    protected $session;
+
+    /**
+     * @var int
+     */
+    protected $started = 0;
+
+    /**
+     * @var int
+     */
+    protected $failure = 0;
+
+    /**
+     * @var int
+     */
+    protected $aborted = 0;
+
+    /**
+     * @var int
+     */
+    protected $success = 0;
+
+    /**
+     * @var int
+     */
+    protected $successOnFailure = 0;
+
+    /**
+     * @param HttpFoundationSession $session
      */
     public function __construct($session)
     {
@@ -36,14 +59,16 @@ class Session implements TransactionInterface
 
     /**
      * Returns the session key
-     * 
+     *
      * @param string $feature
+     *
+     * @return string
      */
     private function getSessionKey($feature)
     {
         return "socloz_feature_flag.transaction.$feature";
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -93,6 +118,11 @@ class Session implements TransactionInterface
      */
     public function getCounts()
     {
-        return array("started" => $this->started, "success" => $this->success, "failure" => $this->failure, "successOnFailure" => $this->successOnFailure);
+        return array(
+            "started" => $this->started,
+            "success" => $this->success,
+            "failure" => $this->failure,
+            "successOnFailure" => $this->successOnFailure
+        );
     }
 }

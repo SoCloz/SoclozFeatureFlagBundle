@@ -6,29 +6,38 @@
 
 namespace Socloz\FeatureFlagBundle\Analytics;
 
+use Socloz\FeatureFlagBundle\State\StateInterface;
 
 /**
  * GoogleAnalytics tracking code
- * 
  * The function adds a session-level variable to the page.
- * 
  * A single variable is used => it is required that :
  * - all features have the same variations
  * - the shared random splitter is used
- *
  * @author jfb
  */
 class GoogleAnalytics implements AnalyticsInterface
 {
 
-    protected $state;
-    protected $variableId;
-    protected $variableName;
-    
     /**
-     * @param \Socloz\FeatureFlagBundle\State\StateInterface $state
-     * @param string $variableId
-     * @param string $variableName
+     * @var StateInterface
+     */
+    protected $state;
+
+    /**
+     * @var string
+     */
+    protected $variableId;
+
+    /**
+     * @var string
+     */
+    protected $variableName;
+
+    /**
+     * @param StateInterface $state
+     * @param string         $variableId
+     * @param string         $variableName
      */
     public function __construct($state, $variableId, $variableName)
     {
@@ -39,8 +48,10 @@ class GoogleAnalytics implements AnalyticsInterface
 
     /**
      * Returns the tracking code for A/B tests
-     * 
+     *
      * @param string $feature
+     *
+     * @return string
      */
     public function getTrackingCode($feature)
     {
