@@ -6,7 +6,8 @@
 
 namespace Socloz\FeatureFlagBundle\State;
 
-use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest,
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+
 /**
  * Fetches feature states in the user session
  * @author jfb
