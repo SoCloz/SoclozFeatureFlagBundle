@@ -15,7 +15,6 @@ use Symfony\Component\DependencyInjection\Exception\InactiveScopeException;
  */
 class StateChain implements StateInterface
 {
-
     /**
      * @var array
      */

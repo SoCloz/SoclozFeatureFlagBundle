@@ -6,7 +6,7 @@
 
 namespace Socloz\FeatureFlagBundle\State;
 
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 /**
  * Fetches feature states in the user session
@@ -15,14 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 class Cookie implements StateInterface
 {
     /**
-     * @var Request
+     * @var HttpFoundationRequest
      */
     protected $request;
 
     /**
-     * @param Request $request
+     * @param HttpFoundationRequest $request
      */
-    public function __construct($request)
+    public function __construct(HttpFoundationRequest $request)
     {
         $this->request = $request;
     }

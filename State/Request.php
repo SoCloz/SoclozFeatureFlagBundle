@@ -22,7 +22,7 @@ class Request implements StateInterface
     /**
      * @param HttpFoundationRequest $request
      */
-    public function __construct($request)
+    public function __construct(HttpFoundationRequest $request)
     {
         $this->request = $request;
     }

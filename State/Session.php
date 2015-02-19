@@ -22,7 +22,7 @@ class Session implements StateInterface
     /**
      * @param HttpFoundationSession $session
      */
-    public function __construct($session)
+    public function __construct(HttpFoundationSession $session)
     {
         $this->session = $session;
     }
