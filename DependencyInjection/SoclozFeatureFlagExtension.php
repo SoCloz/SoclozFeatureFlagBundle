@@ -55,8 +55,32 @@ class SoclozFeatureFlagExtension extends Extension
         $container->setDefinition('socloz_feature_flag.splitter', new DefinitionDecorator($config['services']['splitter']));
         $container->setDefinition('socloz_feature_flag.transaction', new DefinitionDecorator($config['services']['transaction']));
         $container->setDefinition('socloz_feature_flag.analytics', new DefinitionDecorator($config['services']['analytics']));
-
         $container->getDefinition('socloz_feature_flag.state')->replaceArgument(1, $config['services']['state']);
+
+        if ($config['services']['splitter'] === 'socloz_feature_flag.splitter.percentage') {
+            $percentages = $this->assignPercentage($config['features'], $config['services']['percentage_feature']);
+            $container->getDefinition('socloz_feature_flag.splitter.percentage')->replaceArgument(0, $percentages);
+        }
+    }
+
+    private function assignPercentage($features, $percentages)
+    {
+        foreach ($features as $featureName => $feature) {
+            if (!isset($percentages[$featureName])) {
+                $upperLimit = 100;
+                $lowerLimit = 100;
+                if (count($feature['variations']) === 0) {
+                    continue;
+                }
+                $val = 100 / count($feature['variations']);
+                foreach ($feature['variations'] as $variation) {
+                    $lowerLimit -= $val;
+                    $percentages[$featureName][$variation] = array('upper_bound' => $lowerLimit, 'lower_bound' => $upperLimit);
+                    $upperLimit-= $val + 1;
+                }
+            }
+        }
+        return $percentages;
     }
 
     /**

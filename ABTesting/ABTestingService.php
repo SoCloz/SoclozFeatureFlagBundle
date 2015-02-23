@@ -70,7 +70,7 @@ class ABTestingService
                 return $variation;
             }
         }
-        $variation = $this->splitter->chooseVariation($f->getVariations());
+        $variation = $this->splitter->chooseVariation($f->getVariations(), $feature);
         if ($this->state) {
             $this->state->setFeatureVariation($feature, $variation);
         }

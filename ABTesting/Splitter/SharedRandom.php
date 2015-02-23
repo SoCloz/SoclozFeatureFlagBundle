@@ -30,7 +30,7 @@ class SharedRandom implements SplitterInterface
     /**
      * {@inheritDoc}
      */
-    public function chooseVariation($variations)
+    public function chooseVariation($variations, $featureName = null)
     {
         $key = sprintf("socloz_feature_flag_splitter_%s", join("_", $variations));
         if ($this->session->has($key)) {

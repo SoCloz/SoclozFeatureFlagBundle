@@ -16,8 +16,9 @@ interface SplitterInterface
      * Chooses a variation
      *
      * @param array $variations - list of variations
+     * @param null  $featureName
      *
      * @return string $variation
      */
-    public function chooseVariation($variations);
+    public function chooseVariation($variations, $featureName = null);
 }
