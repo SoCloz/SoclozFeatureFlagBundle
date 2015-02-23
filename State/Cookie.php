@@ -60,18 +60,34 @@ class Cookie implements StateInterface
     /**
      * {@inheritDoc}
      */
-    public function setFeatureVariation($feature, $variation)
+    public function setFeatureVariation($feature, $variation, $suffix = null)
     {
-        $key = $this->getSessionKey("${feature}_variation");
+        $key = $this->createKey($feature, $suffix);
         $this->request->cookies->get($key, $variation);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFeatureVariation($feature)
+    public function getFeatureVariation($feature, $suffix = null)
+    {
+        $key = $this->createKey($feature, $suffix);
+        return $this->request->cookies->has($key) ? $this->request->cookies->get($key) : null;
+    }
+
+    /**
+     * @param string $feature
+     * @param string $suffix
+     *
+     * @return string
+     */
+    private function createKey($feature, $suffix = null)
     {
         $key = $this->getSessionKey("${feature}_variation");
-        return $this->request->cookies->has($key) ? $this->request->cookies->get($key) : null;
+
+        if ($suffix) {
+            $key .= '_' . $suffix;
+        }
+        return $key;
     }
 }

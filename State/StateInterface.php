@@ -16,7 +16,7 @@ interface StateInterface
 
     public function getFeatureEnabled($feature);
 
-    public function setFeatureVariation($feature, $variation);
+    public function setFeatureVariation($feature, $variation, $suffix = null);
 
-    public function getFeatureVariation($feature);
+    public function getFeatureVariation($feature, $suffix = null);
 }

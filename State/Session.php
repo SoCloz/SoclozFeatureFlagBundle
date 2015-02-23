@@ -60,18 +60,35 @@ class Session implements StateInterface
     /**
      * {@inheritDoc}
      */
-    public function setFeatureVariation($feature, $variation)
+    public function setFeatureVariation($feature, $variation, $suffix = null)
     {
-        $key = $this->getSessionKey("$feature.variation");
+        $key = $this->createKey($feature, $suffix);
         $this->session->set($key, $variation);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFeatureVariation($feature)
+    public function getFeatureVariation($feature, $suffix = null)
     {
-        $key = $this->getSessionKey("$feature.variation");
+        $key = $this->createKey($feature, $suffix);
         return $this->session->has($key) ? $this->session->get($key) : null;
+    }
+
+
+    /**
+     * @param string $feature
+     * @param string $suffix
+     *
+     * @return string
+     */
+    private function createKey($feature, $suffix = null)
+    {
+        $key = $this->getSessionKey($feature.'.variation');
+
+        if ($suffix) {
+            $key .= '_'.$suffix;
+        }
+        return $key;
     }
 }

@@ -58,17 +58,31 @@ class Request implements StateInterface
     /**
      * {@inheritDoc}
      */
-    public function setFeatureVariation($feature, $variation)
+    public function setFeatureVariation($feature, $variation, $suffix = null)
     {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFeatureVariation($feature)
+    public function getFeatureVariation($feature, $suffix = null)
     {
-        $key = $this->getSessionKey("${feature}_variation");
+        $key = $this->createKey($feature, $suffix);
         return $this->request->query->has($key) ? $this->request->query->get($key) : null;
     }
 
+    /**
+     * @param string $feature
+     * @param string $suffix
+     *
+     * @return string
+     */
+    private function createKey($feature, $suffix = null)
+    {
+        $key = $this->getSessionKey("${feature}_variation");
+        if ($suffix) {
+            $key .= '_'.$suffix;
+        }
+        return  $key;
+    }
 }

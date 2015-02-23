@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Exception\InactiveScopeException;
 class StateChain implements StateInterface
 {
     /**
-     * @var array
+     * @var StateInterface[]
      */
     protected $chain;
 
@@ -61,17 +61,17 @@ class StateChain implements StateInterface
         return null;
     }
 
-    public function setFeatureVariation($feature, $variation)
+    public function setFeatureVariation($feature, $variation, $suffix = null)
     {
         foreach ($this->chain as $item) {
-            $item->setFeatureVariation($feature, $variation);
+            $item->setFeatureVariation($feature, $variation, $suffix);
         }
     }
 
-    public function getFeatureVariation($feature)
+    public function getFeatureVariation($feature, $suffix = null)
     {
         foreach ($this->chain as $item) {
-            $ret = $item->getFeatureVariation($feature);
+            $ret = $item->getFeatureVariation($feature, $suffix);
             if ($ret !== null) {
                 return $ret;
             }

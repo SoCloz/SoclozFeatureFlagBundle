@@ -59,20 +59,20 @@ class ABTestingService
      *
      * @return boolean
      */
-    public function getFeatureVariation($feature)
+    public function getFeatureVariation($feature, $suffix = null)
     {
         $f = $this->features->getFeature($feature);
         if ($f == null || count($f->getVariations()) == 0) return null;
 
         if ($this->state) {
-            $variation = $this->state->getFeatureVariation($feature);
+            $variation = $this->state->getFeatureVariation($feature, $suffix);
             if ($variation !== null) {
                 return $variation;
             }
         }
         $variation = $this->splitter->chooseVariation($f->getVariations());
         if ($this->state) {
-            $this->state->setFeatureVariation($feature, $variation);
+            $this->state->setFeatureVariation($feature, $variation, $suffix);
         }
         return $variation;
     }
