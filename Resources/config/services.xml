@@ -15,6 +15,7 @@
         <parameter key="socloz_feature_flag.abtesting.class">Socloz\FeatureFlagBundle\ABTesting\ABTestingService</parameter>
         <parameter key="socloz_feature_flag.splitter.shared_random.class">Socloz\FeatureFlagBundle\ABTesting\Splitter\SharedRandom</parameter>
         <parameter key="socloz_feature_flag.splitter.random.class">Socloz\FeatureFlagBundle\ABTesting\Splitter\Random</parameter>
+        <parameter key="socloz_feature_flag.splitter.percentage.class">Socloz\FeatureFlagBundle\ABTesting\Splitter\Percentage</parameter>
         <parameter key="socloz_feature_flag.transaction.session.class">Socloz\FeatureFlagBundle\ABTesting\Transaction\Session</parameter>
         <parameter key="socloz_feature_flag.analytics.google_analytics.class">Socloz\FeatureFlagBundle\Analytics\GoogleAnalytics</parameter>
 
@@ -42,15 +43,20 @@
         </service>
         <service id="socloz_feature_flag.splitter.random" class="%socloz_feature_flag.splitter.random.class%">
         </service>
+
+        <service id="socloz_feature_flag.splitter.percentage" class="%socloz_feature_flag.splitter.percentage.class%">
+            <argument>~</argument>
+        </service>
+
         <service id="socloz_feature_flag.splitter" synthetic="true">
         </service>
-        
+
         <service id="socloz_feature_flag.transaction.session" class="%socloz_feature_flag.transaction.session.class%">
             <argument type="service" id="session" on-invalid="null" />
         </service>
         <service id="socloz_feature_flag.transaction" synthetic="true">
         </service>
-        
+
         <service id="socloz_feature_flag.storage.redis" class="%socloz_feature_flag.storage.redis.class%">
             <argument>%socloz_feature_flag.redis.host%</argument>
             <argument>%socloz_feature_flag.redis.prefix%</argument>

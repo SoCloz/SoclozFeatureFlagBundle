@@ -15,7 +15,7 @@ class Random implements SplitterInterface
     /**
      * {@inheritDoc}
      */
-    public function chooseVariation($variations)
+    public function chooseVariation($variations, $featureName = null)
     {
         return $variations[mt_rand(0, count($variations) - 1)];
     }
