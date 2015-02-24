@@ -39,13 +39,10 @@ class Weight implements SplitterInterface
     {
         $generatedNumber = rand(0, 100);
         foreach ($this->config[$featureName] as $variation => $range) {
-            dump($generatedNumber);
             if ($range->isBounded($generatedNumber)) {
 
                 return $variation;
             }
         }
-        throw new \Exception('Feature doesn\'t exist');
-
     }
 }
