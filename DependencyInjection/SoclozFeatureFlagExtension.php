@@ -57,24 +57,19 @@ class SoclozFeatureFlagExtension extends Extension
         $container->setDefinition('socloz_feature_flag.analytics', new DefinitionDecorator($config['services']['analytics']));
         $container->getDefinition('socloz_feature_flag.state')->replaceArgument(1, $config['services']['state']);
 
-        $percentages = $this->assignPercentage($config['features'], $config['services']['percentage_feature']);
-        $container->getDefinition('socloz_feature_flag.splitter.percentage')->replaceArgument(0, $percentages);
+        $weights = $this->assignPercentage($config['features'], $config['services']['weight_feature']);
+        $container->getDefinition('socloz_feature_flag.splitter.weight')->replaceArgument(0, $weights);
     }
 
     private function assignPercentage($features, $percentages)
     {
         foreach ($features as $featureName => $feature) {
-            if (!isset($percentages[$featureName])) {
-                $upperLimit = 100;
-                $lowerLimit = 100;
-                if (count($feature['variations']) === 0) {
-                    continue;
-                }
-                $val = 100 / count($feature['variations']);
-                foreach ($feature['variations'] as $variation) {
-                    $lowerLimit -= $val;
-                    $percentages[$featureName][$variation] = array('upper_bound' => $lowerLimit, 'lower_bound' => $upperLimit);
-                    $upperLimit-= $val + 1;
+            if (count($feature['variations']) === 0) {
+                continue;
+            }
+            foreach ($feature['variations'] as $variation) {
+                if (!isset($percentages[$featureName][$variation])) {
+                    $percentages[$featureName][$variation] = 1;
                 }
             }
         }

@@ -63,7 +63,7 @@ class Range
      */
     public function isBounded($number)
     {
-        if ($number >= $this->max && $number <= $this->min) {
+        if ($number >= $this->min && $number <= $this->max) {
             return true;
         }
         return false;

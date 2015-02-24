@@ -15,7 +15,7 @@
         <parameter key="socloz_feature_flag.abtesting.class">Socloz\FeatureFlagBundle\ABTesting\ABTestingService</parameter>
         <parameter key="socloz_feature_flag.splitter.shared_random.class">Socloz\FeatureFlagBundle\ABTesting\Splitter\SharedRandom</parameter>
         <parameter key="socloz_feature_flag.splitter.random.class">Socloz\FeatureFlagBundle\ABTesting\Splitter\Random</parameter>
-        <parameter key="socloz_feature_flag.splitter.percentage.class">Socloz\FeatureFlagBundle\ABTesting\Splitter\Percentage</parameter>
+        <parameter key="socloz_feature_flag.splitter.weight.class">Socloz\FeatureFlagBundle\ABTesting\Splitter\Weight</parameter>
         <parameter key="socloz_feature_flag.transaction.session.class">Socloz\FeatureFlagBundle\ABTesting\Transaction\Session</parameter>
         <parameter key="socloz_feature_flag.analytics.google_analytics.class">Socloz\FeatureFlagBundle\Analytics\GoogleAnalytics</parameter>
 
@@ -44,7 +44,7 @@
         <service id="socloz_feature_flag.splitter.random" class="%socloz_feature_flag.splitter.random.class%">
         </service>
 
-        <service id="socloz_feature_flag.splitter.percentage" class="%socloz_feature_flag.splitter.percentage.class%">
+        <service id="socloz_feature_flag.splitter.weight" class="%socloz_feature_flag.splitter.weight.class%">
             <argument type="collection"></argument>
         </service>
 
