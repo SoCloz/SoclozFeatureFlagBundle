@@ -37,6 +37,7 @@ class Percentage implements SplitterInterface
     {
         if (isset($this->config[$featureName])) {
             $this->config[$featureName] = $percentages;
+            return;
         }
         throw new \Exception('Feature doesn\'t exist');
     }

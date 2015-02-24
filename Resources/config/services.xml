@@ -45,7 +45,7 @@
         </service>
 
         <service id="socloz_feature_flag.splitter.percentage" class="%socloz_feature_flag.splitter.percentage.class%">
-            <argument>~</argument>
+            <argument type="collection"></argument>
         </service>
 
         <service id="socloz_feature_flag.splitter" synthetic="true">

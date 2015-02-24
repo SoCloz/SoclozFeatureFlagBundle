@@ -57,10 +57,8 @@ class SoclozFeatureFlagExtension extends Extension
         $container->setDefinition('socloz_feature_flag.analytics', new DefinitionDecorator($config['services']['analytics']));
         $container->getDefinition('socloz_feature_flag.state')->replaceArgument(1, $config['services']['state']);
 
-        if ($config['services']['splitter'] === 'socloz_feature_flag.splitter.percentage') {
-            $percentages = $this->assignPercentage($config['features'], $config['services']['percentage_feature']);
-            $container->getDefinition('socloz_feature_flag.splitter.percentage')->replaceArgument(0, $percentages);
-        }
+        $percentages = $this->assignPercentage($config['features'], $config['services']['percentage_feature']);
+        $container->getDefinition('socloz_feature_flag.splitter.percentage')->replaceArgument(0, $percentages);
     }
 
     private function assignPercentage($features, $percentages)
