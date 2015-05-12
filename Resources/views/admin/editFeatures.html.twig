@@ -4,7 +4,7 @@
 <ul class="unstyled form-horizontal">
 {% for feature in feature_service.features %}
     <li class="control-group">
-        <div class="control-label">{{ feature.name | trans }}</div>
+        <div class="control-label">{{ feature.name | trans({}, 'SoclozFeatureFlagBundle') }}</div>
         <div class="controls">
             {% if feature.mayBeVisible %}
                 <div class="btn-group pull-left">
